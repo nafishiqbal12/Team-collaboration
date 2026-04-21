@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Provider Hub | Frontend v1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html"><span class="brand-dot"></span>Provider Hub</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navMain" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="pages/customer.html">Customer</a></li>
+            <li class="nav-item"><a class="nav-link" href="pages/provider.html">Provider</a></li>
+            <li class="nav-item"><a class="nav-link" href="pages/admin.html">Admin</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="container">
+        <div class="row g-4 align-items-center hero-card p-4 p-lg-5">
+          <div class="col-lg-7 fade-up">
+            <p class="text-uppercase text-muted mb-2">Provider Hub Frontend</p>
+            <h1 class="display-5 fw-bold mb-3">A professional service marketplace UI built for real workflows</h1>
+            <p class="lead text-secondary">
+              Structured around the SRS, this interface helps customers discover services, providers manage requests, and admins monitor the platform with less friction.
+            </p>
+            <div class="nav-pills-compact mt-3 mb-3">
+              <a class="nav-chip" href="pages/customer.html">Customer Flow</a>
+              <a class="nav-chip" href="pages/provider.html">Provider Workspace</a>
+              <a class="nav-chip" href="pages/admin.html">Admin Console</a>
+            </div>
+            <div class="hero-actions">
+              <a class="btn btn-brand px-4" href="pages/customer.html">Explore Customer Flow</a>
+              <a class="btn btn-outline-dark px-4" href="pages/provider.html">Open Provider Panel</a>
+            </div>
+          </div>
+          <div class="col-lg-5 fade-up delay-1">
+            <div class="block">
+              <div class="section-head">
+                <h5 class="mb-0">What this UI supports</h5>
+                <span class="soft-chip">SRS-aligned</span>
+              </div>
+              <div class="hero-stat mb-3">
+                <h6 class="mb-1">Authentication</h6>
+                <p class="mb-0 text-secondary">Clear login and registration entry points for all roles.</p>
+              </div>
+              <div class="hero-stat mb-3">
+                <h6 class="mb-1">Booking Lifecycle</h6>
+                <p class="mb-0 text-secondary">Search, request, accept/reject, track, and review services.</p>
+              </div>
+              <div class="hero-stat">
+                <h6 class="mb-1">Admin Governance</h6>
+                <p class="mb-0 text-secondary">Verification, moderation, category control, and reports.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="container pb-5">
+      <section class="mb-4 fade-up delay-2">
+        <div class="section-head">
+          <h2 class="section-title mb-0">Module Navigation</h2>
+          <span class="soft-chip">Responsive + Mobile Ready</span>
+        </div>
+        <hr class="subtle-divider" />
+        <div class="row g-3 mb-3">
+          <div class="col-md-4">
+            <div class="mini-kpi">
+              <small class="text-secondary">Core Actors</small>
+              <h4>3 Roles</h4>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mini-kpi">
+              <small class="text-secondary">Primary Entities</small>
+              <h4>7 Tables</h4>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="mini-kpi">
+              <small class="text-secondary">Design Direction</small>
+              <h4>Clean + Trustworthy</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <article class="module-card p-4 h-100 fade-up">
+              <div class="module-eyebrow">For Customers</div>
+              <h4>Customer Module</h4>
+              <p class="text-secondary">Find verified providers, compare profiles, and request services in a guided flow.</p>
+              <ul class="module-list">
+                <li><span class="module-bullet"></span>Search by category or keyword</li>
+                <li><span class="module-bullet"></span>View ratings and provider status</li>
+                <li><span class="module-bullet"></span>Submit booking and review service</li>
+              </ul>
+              <span class="pill pill-ok">SRS 3.1</span>
+              <div class="mt-3"><a class="btn btn-sm btn-brand" href="pages/customer.html">Open</a></div>
+            </article>
+          </div>
+          <div class="col-md-4">
+            <article class="module-card p-4 h-100 fade-up delay-1">
+              <div class="module-eyebrow">For Providers</div>
+              <h4>Provider Module</h4>
+              <p class="text-secondary">Manage your service profile, handle booking requests, and monitor earnings at a glance.</p>
+              <ul class="module-list">
+                <li><span class="module-bullet"></span>Publish service details and price</li>
+                <li><span class="module-bullet"></span>Accept or reject incoming bookings</li>
+                <li><span class="module-bullet"></span>Track availability and earnings</li>
+              </ul>
+              <span class="pill pill-warn">SRS 3.2</span>
+              <div class="mt-3"><a class="btn btn-sm btn-brand" href="pages/provider.html">Open</a></div>
+            </article>
+          </div>
+          <div class="col-md-4">
+            <article class="module-card p-4 h-100 fade-up delay-2">
+              <div class="module-eyebrow">For Admin</div>
+              <h4>Admin Module</h4>
+              <p class="text-secondary">Monitor users, verify providers, manage categories, and control platform health.</p>
+              <ul class="module-list">
+                <li><span class="module-bullet"></span>Verify and moderate provider accounts</li>
+                <li><span class="module-bullet"></span>Maintain categories and reports</li>
+                <li><span class="module-bullet"></span>Suspend or deactivate risky accounts</li>
+              </ul>
+              <span class="pill pill-danger">SRS 3.3</span>
+              <div class="mt-3"><a class="btn btn-sm btn-brand" href="pages/admin.html">Open</a></div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="py-3">
+      <div class="container d-flex justify-content-between flex-wrap gap-2">
+        <small class="text-secondary">Provider Hub Frontend Prototype</small>
+        <small class="text-secondary">&copy; <span data-year></span> Team Collaboration</small>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
