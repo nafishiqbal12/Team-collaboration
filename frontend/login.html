@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Provider Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .login-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+      }
+
+      .login-card {
+        background: linear-gradient(180deg, #ffffff, #fcfbf7);
+        border: 1px solid var(--line);
+        border-radius: 1.5rem;
+        box-shadow: 0 20px 48px rgba(20, 20, 20, 0.12);
+        padding: 2rem;
+        width: 100%;
+        max-width: 420px;
+        animation: slideUp 0.6s ease forwards;
+        opacity: 0;
+      }
+
+      @keyframes slideUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+      }
+
+      .login-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .login-header h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--ink);
+      }
+
+      .login-header p {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.2rem;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: var(--ink);
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+      }
+
+      .form-control,
+      .form-select {
+        border: 1.5px solid #d9d0bd;
+        background-color: #fffefa;
+        border-radius: 0.65rem;
+        padding: 0.65rem 0.85rem;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        border-color: var(--brand);
+        box-shadow: 0 0 0 0.2rem rgba(15, 118, 110, 0.15);
+        background-color: #fffefa;
+      }
+
+      .form-control::placeholder {
+        color: #999;
+      }
+
+      .input-group-text {
+        background: #f3ecdd;
+        border: 1.5px solid #d9d0bd;
+        color: var(--brand);
+      }
+
+      .form-text {
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 0.3rem;
+      }
+
+      .password-toggle {
+        cursor: pointer;
+        user-select: none;
+        color: var(--brand);
+      }
+
+      .btn-login {
+        background: linear-gradient(135deg, var(--brand), #12867e);
+        color: #fff;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        font-weight: 600;
+        border-radius: 0.65rem;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 18px rgba(15, 118, 110, 0.24);
+      }
+
+      .btn-login:hover {
+        background: linear-gradient(135deg, var(--brand-dark), var(--brand));
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(15, 118, 110, 0.3);
+      }
+
+      .btn-login:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .login-spinner {
+        display: none;
+        width: 1rem;
+        height: 1rem;
+        margin-right: 0.5rem;
+      }
+
+      .login-divider {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 1.5rem 0;
+        color: var(--muted);
+        font-size: 0.87rem;
+      }
+
+      .login-divider::before,
+      .login-divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+      }
+
+      .login-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .login-footer a {
+        color: var(--brand);
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.2s ease;
+      }
+
+      .login-footer a:hover {
+        color: var(--brand-dark);
+        text-decoration: underline;
+      }
+
+      .form-check {
+        margin-bottom: 1rem;
+      }
+
+      .form-check-input {
+        width: 1.1rem;
+        height: 1.1rem;
+        border: 1.5px solid #d9d0bd;
+        border-radius: 0.35rem;
+      }
+
+      .form-check-input:checked {
+        background-color: var(--brand);
+        border-color: var(--brand);
+      }
+
+      .form-check-input:focus {
+        box-shadow: 0 0 0 0.2rem rgba(15, 118, 110, 0.15);
+        border-color: var(--brand);
+      }
+
+      .form-check-label {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-left: 0.5rem;
+      }
+
+      .forgot-password {
+        text-align: right;
+        margin-top: 0.5rem;
+      }
+
+      .forgot-password a {
+        color: var(--brand);
+        font-size: 0.85rem;
+        text-decoration: none;
+      }
+
+      .forgot-password a:hover {
+        text-decoration: underline;
+      }
+
+      .error-message {
+        color: var(--danger);
+        font-size: 0.8rem;
+        margin-top: 0.3rem;
+        display: none;
+      }
+
+      .form-control.is-invalid,
+      .form-select.is-invalid {
+        border-color: var(--danger);
+      }
+
+      .form-control.is-invalid:focus,
+      .form-select.is-invalid:focus {
+        box-shadow: 0 0 0 0.2rem rgba(180, 35, 24, 0.15);
+      }
+
+      .success-message {
+        background: rgba(31, 157, 85, 0.1);
+        border-left: 4px solid var(--ok);
+        color: var(--ok);
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        display: none;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html"><span class="brand-dot"></span>Provider Hub</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navMain" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="providers.html">Browse Services</a></li>
+            <li class="nav-item"><a class="nav-link active" href="login.html">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
+            <li class="nav-item"><a class="nav-link" href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Login Form Container -->
+    <div class="login-container">
+      <div class="login-card">
+        <!-- Header -->
+        <div class="login-header">
+          <h2>Welcome Back</h2>
+          <p>Login to your Provider Hub account</p>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+          <i class="bi bi-check-circle-fill me-2"></i>
+          <span id="successText"></span>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" novalidate>
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">
+              <i class="bi bi-envelope me-2"></i>Email Address
+            </label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              placeholder="your@email.com"
+              required
+            />
+            <small class="form-text text-danger error-message" id="emailError"></small>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password" class="form-label">
+              <i class="bi bi-lock me-2"></i>Password
+            </label>
+            <div class="input-group">
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+              />
+              <span class="input-group-text password-toggle" id="passwordToggle">
+                <i class="bi bi-eye"></i>
+              </span>
+            </div>
+            <small class="form-text text-danger error-message" id="passwordError"></small>
+          </div>
+
+          <!-- Remember Me -->
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe" />
+            <label class="form-check-label" for="rememberMe">
+              Remember me
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn btn-login mt-2">
+            <span class="spinner-border spinner-border-sm login-spinner" id="loginSpinner" role="status" aria-hidden="true"></span>
+            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+          </button>
+        </form>
+
+        <!-- Divider -->
+        <div class="login-divider">Don't have an account?</div>
+
+        <!-- Footer Links -->
+        <div class="login-footer">
+          <a href="register.html"><i class="bi bi-person-plus me-1"></i>Create one now</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+      // Password visibility toggle
+      const passwordToggle = document.getElementById('passwordToggle');
+      const passwordInput = document.getElementById('password');
+
+      passwordToggle.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        passwordToggle.innerHTML = type === 'password' ? '<i class="bi bi-eye"></i>' : '<i class="bi bi-eye-slash"></i>';
+      });
+
+
+
+      // Form validation and submission
+      const loginForm = document.getElementById('loginForm');
+
+      loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Reset error messages
+        document.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.form-control').forEach(el => el.classList.remove('is-invalid'));
+
+        let isValid = true;
+
+        // Validate Email
+        const email = document.getElementById('email');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.value.trim()) {
+          showError('email', 'Email is required');
+          isValid = false;
+        } else if (!emailRegex.test(email.value)) {
+          showError('email', 'Please enter a valid email address');
+          isValid = false;
+        }
+
+        // Validate Password
+        const password = document.getElementById('password');
+        if (!password.value) {
+          showError('password', 'Password is required');
+          isValid = false;
+        }
+
+        if (isValid) {
+          const credentials = {
+            email: email.value.trim(),
+            password: password.value,
+          };
+
+          await login(credentials);
+        }
+      });
+
+      function showError(fieldId, message) {
+        const field = document.getElementById(fieldId);
+        const errorElement = document.getElementById(fieldId + 'Error');
+        field.classList.add('is-invalid');
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+      }
+
+      // Remove error styling on input
+      document.querySelectorAll('.form-control').forEach(field => {
+        field.addEventListener('input', () => {
+          field.classList.remove('is-invalid');
+        });
+      });
+
+      // Check if already logged in
+      window.addEventListener('load', () => {
+        const token = localStorage.getItem('jwtToken');
+        if (token) {
+          // User is already logged in, redirect to dashboard
+          window.location.href = 'dashboard.html';
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Service | Provider Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .booking-container {
+        min-height: 100vh;
+        padding-top: 6rem;
+        padding-bottom: 2rem;
+      }
+
+      .booking-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .booking-header h1 {
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .booking-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      @media (max-width: 768px) {
+        .booking-content {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .provider-details {
+        background: linear-gradient(180deg, #ffffff, #fcfbf7);
+        border: 1px solid var(--line);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        box-shadow: 0 10px 24px rgba(20, 20, 20, 0.055);
+      }
+
+      .provider-header-large {
+        background: linear-gradient(135deg, var(--brand), #12867e);
+        color: #fff;
+        padding: 2rem;
+        border-radius: 1rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .provider-avatar-large {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        margin: 0 auto 1rem;
+      }
+
+      .provider-name-large {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+      }
+
+      .provider-service-large {
+        font-size: 1rem;
+        opacity: 0.9;
+        margin-bottom: 0.5rem;
+      }
+
+      .provider-meta {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .meta-item {
+        background: rgba(255, 255, 255, 0.15);
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        font-size: 0.85rem;
+      }
+
+      .meta-value {
+        display: block;
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+
+      .provider-info-section {
+        margin-top: 1.5rem;
+      }
+
+      .info-label {
+        font-weight: 600;
+        color: var(--ink);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .info-value {
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+
+      .booking-form {
+        background: linear-gradient(180deg, #ffffff, #fcfbf7);
+        border: 1px solid var(--line);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        box-shadow: 0 10px 24px rgba(20, 20, 20, 0.055);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-section-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--ink);
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: var(--ink);
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+      }
+
+      .form-control,
+      .form-select {
+        border: 1.5px solid #d9d0bd;
+        background-color: #fffefa;
+        border-radius: 0.65rem;
+        padding: 0.75rem 0.85rem;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus,
+      .form-select:focus {
+        border-color: var(--brand);
+        box-shadow: 0 0 0 0.2rem rgba(15, 118, 110, 0.15);
+        background-color: #fffefa;
+      }
+
+      .form-text {
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 0.3rem;
+      }
+
+      .price-summary {
+        background: rgba(15, 118, 110, 0.08);
+        border-left: 4px solid var(--brand);
+        padding: 1.25rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .price-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+      }
+
+      .price-row:last-child {
+        margin-bottom: 0;
+        padding-top: 0.75rem;
+        border-top: 1px solid rgba(15, 118, 110, 0.2);
+        font-weight: 700;
+        font-size: 1.1rem;
+        color: var(--brand);
+      }
+
+      .btn-confirm {
+        background: linear-gradient(135deg, var(--brand), #12867e);
+        color: #fff;
+        border: none;
+        padding: 0.85rem 1.5rem;
+        font-weight: 600;
+        border-radius: 0.65rem;
+        width: 100%;
+        transition: all 0.3s ease;
+        box-shadow: 0 8px 18px rgba(15, 118, 110, 0.24);
+        font-size: 1rem;
+        margin-top: auto;
+      }
+
+      .btn-confirm:hover {
+        background: linear-gradient(135deg, var(--brand-dark), var(--brand));
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 12px 24px rgba(15, 118, 110, 0.3);
+      }
+
+      .btn-confirm:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .loading-spinner {
+        display: none;
+        width: 1rem;
+        height: 1rem;
+        margin-right: 0.5rem;
+      }
+
+      .error-message {
+        background: rgba(180, 35, 24, 0.1);
+        border-left: 4px solid var(--danger);
+        color: var(--danger);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        display: none;
+      }
+
+      .success-message {
+        background: rgba(31, 157, 85, 0.1);
+        border-left: 4px solid var(--ok);
+        color: var(--ok);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1.5rem;
+        display: none;
+      }
+
+      .loading-state {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 200px;
+        color: var(--muted);
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--brand);
+        text-decoration: none;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        transition: all 0.2s ease;
+      }
+
+      .back-link:hover {
+        color: var(--brand-dark);
+        transform: translateX(-4px);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html"><span class="brand-dot"></span>Provider Hub</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navMain" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="providers.html">Browse Services</a></li>
+            <li class="nav-item"><a class="nav-link" href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="login.html" id="loginLink">Login</a></li>
+            <li class="nav-item"><a class="nav-link" href="register.html" id="registerLink">Register</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Booking Container -->
+    <div class="booking-container">
+      <div class="container">
+        <!-- Back Link -->
+        <a href="providers.html" class="back-link">
+          <i class="bi bi-arrow-left"></i>Back to Providers
+        </a>
+
+        <!-- Header -->
+        <div class="booking-header">
+          <h1>Confirm Your Booking</h1>
+          <p class="text-secondary">Review provider details and select your preferred date and time</p>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          <span id="errorText"></span>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+          <i class="bi bi-check-circle-fill me-2"></i>
+          <span id="successText">Booking confirmed! Redirecting...</span>
+        </div>
+
+        <!-- Booking Content -->
+        <div class="booking-content">
+          <!-- Provider Details -->
+          <div class="provider-details">
+            <div id="providerContent">
+              <div class="loading-state">
+                <div class="spinner-border text-brand" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <span class="ms-3">Loading provider details...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Booking Form -->
+          <form id="bookingForm" class="booking-form" style="display: none;">
+            <h3 class="form-section-title">Schedule Your Service</h3>
+
+            <!-- Date Selection -->
+            <div class="form-group">
+              <label for="bookingDate" class="form-label">
+                <i class="bi bi-calendar-event me-2"></i>Preferred Date
+              </label>
+              <input
+                type="date"
+                class="form-control"
+                id="bookingDate"
+                name="bookingDate"
+                required
+              />
+              <small class="form-text">Select a date for the service</small>
+            </div>
+
+            <!-- Time Selection -->
+            <div class="form-group">
+              <label for="bookingTime" class="form-label">
+                <i class="bi bi-clock me-2"></i>Preferred Time
+              </label>
+              <select class="form-select" id="bookingTime" name="bookingTime" required>
+                <option value="">Select a time slot</option>
+                <option value="08:00">08:00 AM</option>
+                <option value="09:00">09:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="14:00">02:00 PM</option>
+                <option value="15:00">03:00 PM</option>
+                <option value="16:00">04:00 PM</option>
+                <option value="17:00">05:00 PM</option>
+              </select>
+              <small class="form-text">Available time slots</small>
+            </div>
+
+            <!-- Service Notes -->
+            <div class="form-group">
+              <label for="serviceNotes" class="form-label">
+                <i class="bi bi-chat-left-text me-2"></i>Service Details (Optional)
+              </label>
+              <textarea
+                class="form-control"
+                id="serviceNotes"
+                name="serviceNotes"
+                rows="3"
+                placeholder="Describe the service you need, any special requests, or access instructions..."
+              ></textarea>
+              <small class="form-text">This helps the provider prepare better</small>
+            </div>
+
+            <!-- Price Summary -->
+            <div class="price-summary">
+              <div class="price-row">
+                <span>Service Rate</span>
+                <span id="serviceRate">৳500</span>
+              </div>
+              <div class="price-row">
+                <span>Estimated Duration</span>
+                <span id="estimatedHours">1 hour</span>
+              </div>
+              <div class="price-row">
+                <span>Platform Fee</span>
+                <span id="platformFee">৳50</span>
+              </div>
+              <div class="price-row">
+                <span>Total Estimated Cost</span>
+                <span id="totalCost">৳550</span>
+              </div>
+            </div>
+
+            <!-- Confirmation Checkbox -->
+            <div class="form-check mb-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="agreeTerms"
+                name="agreeTerms"
+                required
+              />
+              <label class="form-check-label" for="agreeTerms">
+                I understand the pricing and confirm this booking
+              </label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-confirm">
+              <span class="spinner-border spinner-border-sm loading-spinner" id="formSpinner" role="status" aria-hidden="true"></span>
+              <i class="bi bi-check-circle me-2"></i>Confirm Booking
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-4 border-top">
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-3 mb-3 mb-md-0">
+            <h6 class="fw-bold mb-3"><span class="brand-dot"></span>Provider Hub</h6>
+            <p class="text-secondary small">Your trusted service marketplace for local professionals.</p>
+          </div>
+          <div class="col-md-3 mb-3 mb-md-0">
+            <h6 class="fw-bold mb-3">For Customers</h6>
+            <ul class="list-unstyled">
+              <li><a href="providers.html" class="text-secondary text-decoration-none small">Browse Services</a></li>
+              <li><a href="#" class="text-secondary text-decoration-none small">How It Works</a></li>
+              <li><a href="#" class="text-secondary text-decoration-none small">Contact Support</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 mb-3 mb-md-0">
+            <h6 class="fw-bold mb-3">For Providers</h6>
+            <ul class="list-unstyled">
+              <li><a href="register.html" class="text-secondary text-decoration-none small">Sign Up</a></li>
+              <li><a href="#" class="text-secondary text-decoration-none small">Manage Account</a></li>
+              <li><a href="#" class="text-secondary text-decoration-none small">Earn More</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <h6 class="fw-bold mb-3">Get In Touch</h6>
+            <ul class="list-unstyled">
+              <li><a href="tel:+8801234567890" class="text-secondary text-decoration-none small">+880 1234 567890</a></li>
+              <li><a href="mailto:support@providerhub.com" class="text-secondary text-decoration-none small">support@providerhub.com</a></li>
+              <li class="mt-2"><small class="text-secondary">Dhanmondi & Mohammadpur</small></li>
+            </ul>
+          </div>
+        </div>
+        <hr class="subtle-divider" />
+        <div class="row">
+          <div class="col-md-6">
+            <small class="text-secondary">&copy; 2024 Provider Hub. All rights reserved.</small>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <small class="text-secondary">
+              <a href="#" class="text-secondary text-decoration-none">Privacy Policy</a> &bull;
+              <a href="#" class="text-secondary text-decoration-none">Terms of Service</a>
+            </small>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+      const API_BASE_URL = 'http://localhost:8080';
+
+      // Get elements
+      const providerContent = document.getElementById('providerContent');
+      const bookingForm = document.getElementById('bookingForm');
+      const bookingDateInput = document.getElementById('bookingDate');
+      const bookingTimeInput = document.getElementById('bookingTime');
+      const serviceNotesInput = document.getElementById('serviceNotes');
+      const errorMessage = document.getElementById('errorMessage');
+      const errorText = document.getElementById('errorText');
+      const successMessage = document.getElementById('successMessage');
+      const agreeTermsCheckbox = document.getElementById('agreeTerms');
+      const formSpinner = document.getElementById('formSpinner');
+
+      // Set minimum date to today
+      const today = new Date().toISOString().split('T')[0];
+      bookingDateInput.setAttribute('min', today);
+
+      // Get provider ID from URL
+      function getProviderIdFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('provider');
+      }
+
+      // Show error
+      function showError(message) {
+        errorText.textContent = message;
+        errorMessage.style.display = 'block';
+        window.scrollTo(0, 0);
+      }
+
+      // Hide error
+      function hideError() {
+        errorMessage.style.display = 'none';
+      }
+
+      // Fetch provider details
+      async function fetchProviderDetails(providerId) {
+        try {
+          const response = await fetch(`${API_BASE_URL}/providers/${providerId}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const provider = await response.json();
+          return provider;
+        } catch (error) {
+          console.error('Error fetching provider:', error);
+          throw error;
+        }
+      }
+
+      // Render provider details
+      function renderProviderDetails(provider) {
+        const serviceIcon = getServiceIcon(provider.service);
+
+        providerContent.innerHTML = `
+          <div class="provider-header-large">
+            <div class="provider-avatar-large">${serviceIcon}</div>
+            <div class="provider-name-large">${escapeHtml(provider.name)}</div>
+            <div class="provider-service-large">${escapeHtml(provider.service)}</div>
+            <div class="provider-meta">
+              <div class="meta-item">
+                <div class="meta-value">★${(provider.rating || 0).toFixed(1)}</div>
+                <div>(${provider.reviews || 0})</div>
+              </div>
+              <div class="meta-item">
+                <div class="meta-value">${escapeHtml(provider.price || '৳500/hr')}</div>
+                <div>Starting Price</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="provider-info-section">
+            <div class="info-label"><i class="bi bi-geo-alt me-2"></i>Location</div>
+            <div class="info-value" id="providerLocation">${escapeHtml(provider.location || 'Dhanmondi')}</div>
+          </div>
+
+          <div class="provider-info-section">
+            <div class="info-label"><i class="bi bi-chat-left-text me-2"></i>About</div>
+            <div class="info-value">${escapeHtml(provider.description || 'Professional service provider')}</div>
+          </div>
+        `;
+
+        // Update price summary
+        const priceStr = provider.price?.replace(/[^0-9]/g, '') || '500';
+        const priceNum = parseInt(priceStr);
+        const platformFee = Math.ceil(priceNum * 0.1); // 10% platform fee
+        const totalCost = priceNum + platformFee;
+
+        document.getElementById('serviceRate').textContent = `৳${priceNum}`;
+        document.getElementById('platformFee').textContent = `৳${platformFee}`;
+        document.getElementById('totalCost').textContent = `৳${totalCost}`;
+
+        // Store provider ID for booking submission
+        window.currentProviderId = provider.id;
+      }
+
+      // Service icon mapping
+      function getServiceIcon(service) {
+        const icons = {
+          'plumbing': '🔧',
+          'electrical': '⚡',
+          'cleaning': '🧹',
+          'painting': '🎨',
+          'carpentry': '🔨',
+          'hvac': '❄️',
+          'landscaping': '🌿'
+        };
+        return icons[service?.toLowerCase()] || '⭐';
+      }
+
+      // Escape HTML
+      function escapeHtml(text) {
+        if (!text) return '';
+        const map = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, m => map[m]);
+      }
+
+      // Submit booking
+      async function submitBooking(event) {
+        event.preventDefault();
+        hideError();
+
+        // Validate required fields
+        if (!bookingDateInput.value || !bookingTimeInput.value || !agreeTermsCheckbox.checked) {
+          showError('Please fill in all required fields and agree to the terms');
+          return;
+        }
+
+        try {
+          formSpinner.style.display = 'inline-block';
+
+          // Get provider location (this would come from provider details)
+          const providerLocation = document.getElementById('providerLocation')?.textContent || 'Dhanmondi';
+
+          const bookingData = {
+            provider_id: window.currentProviderId,
+            date: bookingDateInput.value,
+            time: bookingTimeInput.value,
+            location: providerLocation,
+            notes: serviceNotesInput.value || ''
+          };
+
+          try {
+            const response = await fetch(`${API_BASE_URL}/book`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getJWTToken()}`,
+              },
+              body: JSON.stringify(bookingData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              successMessage.style.display = 'block';
+              bookingForm.style.display = 'none';
+              setTimeout(() => {
+                window.location.href = 'dashboard.html';
+              }, 2000);
+            } else {
+              showError(data.message || 'Failed to book service');
+            }
+          } catch (error) {
+            showError('Network error: ' + error.message);
+          }
+        } catch (error) {
+          console.error('Booking error:', error);
+          showError('Network error: ' + error.message);
+        } finally {
+          formSpinner.style.display = 'none';
+        }
+      }
+
+      // Initialize page
+      async function initPage() {
+        const providerId = getProviderIdFromURL();
+
+        if (!providerId) {
+          showError('Provider not found. Please select a provider first.');
+          return;
+        }
+
+        try {
+          const provider = await fetchProviderDetails(providerId);
+          renderProviderDetails(provider);
+          bookingForm.style.display = 'flex';
+        } catch (error) {
+          showError('Failed to load provider details. Please try again.');
+          console.error(error);
+        }
+      }
+
+      // Event listeners
+      bookingForm.addEventListener('submit', submitBooking);
+
+      // Initialize on page load
+      window.addEventListener('load', initPage);
+    </script>
+  </body>
+</html>
